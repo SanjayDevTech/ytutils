@@ -49,7 +49,7 @@ print(details['title'])
 
 ### Importing
 ```python
-from ytuils.Channel import Channel
+from ytutils.Channel import Channel
 ```
 
 ### Step-1
