@@ -3,25 +3,10 @@ import urllib.parse
 import re
 
 class Video:
-    __pattern__ = r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed)\/))([^\?&\"'>]+)"
+    
     def __init__(self, api_key):
+        self.__pattern__ = r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed)\/))([^\?&\"'>]+)"
         self.api_key = api_key
-        self.title = ''
-        self.thumbnails = ''
-        self.channelId = ''
-        self.des = ''
-        self.publishedAt = ''
-        self.channelTitle = ''
-        self.viewCount = ''
-        self.likeCount = ''
-        self.dislikeCount = ''
-        self.commentCount = ''
-        self.__response = ''
-        self.__result = False
-        self.__code = 0
-        self.__msg = ''
-        self.__reason = ''
-        self.__extendedHelp = ''
         self.__dictChart = {}
         
         
@@ -34,7 +19,7 @@ class Video:
         elif video_url is None:
             self.video_id = video_id
         else:
-            id_pattern = re.search(Video.__pattern__, video_url)
+            id_pattern = re.search(self.__pattern__, video_url)
             if id_pattern is None:
                 raise KeyError('Invalid Video Url')
             self.video_id = id_pattern[1]
