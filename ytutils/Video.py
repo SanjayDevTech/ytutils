@@ -3,6 +3,7 @@ import urllib.parse
 import re
 
 class Video:
+    """Video class for accessing YouTube video information."""
     
     def __init__(self, api_key):
         self.__pattern__ = r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed)\/))([^\?&\"'>]+)"
@@ -11,9 +12,18 @@ class Video:
         
         
     def set_key(self, api_key):
+        """To change the api_key that is used for fetch details"""
+
         self.api_key= api_key
         
     def start(self, video_url=None, video_id=None):
+        """Pass video_url or video_id, two is not mandatory but atleast one should be given.
+        
+        It will raise 
+        SyntaxError => if none of the parameters were given
+        KeyError => if video url is not matching the pattern
+        ConnectionError => if network connection failed"""
+
         if video_url is None and video_id is None:
             raise SyntaxError('There must be given video_url or video_id')
         elif video_url is None:
@@ -66,6 +76,8 @@ class Video:
             self.__dictChart['extended_help'] = 'Use this link to know the meaning of the error code:- https://developers.google.com/youtube/v3/docs/videos/list?hl=en-US#errors_1'
             
     def result(self):
+        """Returns the YT video details"""
+
         return self.__dictChart
         
         

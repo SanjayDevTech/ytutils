@@ -3,6 +3,7 @@ import urllib.parse
 import re
 
 class Channel:
+    """Channel class for accessing YouTube channel information."""
     
     def __init__(self, api_key):
         self.__pattern__ = r"^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/channel\/)([^\?&\"'>]+)"
@@ -10,9 +11,18 @@ class Channel:
         self.__dictChart = {}
     
     def set_key(self, api_key):
+        """To change the api_key that is used for fetch details"""
+
         self.api_key= api_key
     
     def start(self, channel_url=None, channel_id=None):
+        """Pass channel_url or channel_id, two is not mandatory but atleast one should be given.
+        
+        It will raise 
+        SyntaxError => if none of the parameters were given
+        KeyError => if channel url is not matching the pattern
+        ConnectionError => if network connection failed"""
+
         if channel_url is None and channel_id is None:
             raise SyntaxError('There must be given channel_url or channel_id')
         elif channel_url is None:
@@ -66,4 +76,6 @@ class Channel:
             self.__dictChart['extended_help'] = 'Use this link to know the meaning of the error code:- https://developers.google.com/youtube/v3/docs/channels/list?hl=en-US#errors_1'
             
     def result(self):
+        """Returns the YT channel details"""
+        
         return self.__dictChart
